@@ -1,0 +1,13 @@
+name: Get Salt Versions
+author: dafyddj
+description: Return a list of currently supported Salt versions
+outputs:
+  salt-versions:
+    description: A list of currently supported Salt versions
+    value: ${{ steps.get-salt-versions.outputs.salt-versions }}
+runs:
+  using: composite
+  steps:
+    - id: get-salt-versions
+      shell: bash
+      run: echo "::set-output name=salt-versions::[3001.8, 3002.7, 3003.3]"
