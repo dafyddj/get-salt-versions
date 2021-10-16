@@ -1,0 +1,26 @@
+name: Test
+on: [push, pull_request]
+jobs:
+  get-salt-versions:
+    name: Get Salt versions
+    runs-on: ubuntu-latest
+    outputs:
+      salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: get-salt-versions
+        name: Run this action
+        uses: ./
+      - run: echo ${{ steps.get-salt-versions.outputs.salt-versions }}
+  show-salt-versions:
+    name: Show Salt Versions
+    needs: get-salt-versions
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJSON(needs.get-salt-versions.outputs.salt-versions) }}
+    steps:
+      - run: echo $SALT_VERSION
+        env:
+          SALT_VERSION: ${{ matrix.version }}
+
