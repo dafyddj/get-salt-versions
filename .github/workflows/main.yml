@@ -1,0 +1,62 @@
+---
+name: Main
+on: [push, pull_request]
+
+jobs:
+  pre-commit:
+    name: Run `pre-commit`
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v2
+    - uses: pre-commit/action@v2.0.3
+  gsv:
+    name: Get Salt versions
+    runs-on: ubuntu-latest
+    outputs:
+      salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
+    steps:
+      - uses: actions/checkout@v2
+      - id: get-salt-versions
+        name: Run this action
+        uses: ./
+      - run: echo ${{ steps.get-salt-versions.outputs.salt-versions }}
+  show-salt-versions:
+    name: Show Salt versions
+    needs: gsv
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
+    steps:
+      - run: echo $SALT_VERSION
+        env:
+          SALT_VERSION: ${{ matrix.version }}
+  release:
+    name: Release
+    needs:
+      - pre-commit
+      - show-salt-versions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run `semantic-release`
+        uses: codfish/semantic-release-action@v1
+        id: sem-rel
+        with:
+          branches: |
+            ["main"]
+          plugins: |
+            [ "@semantic-release/commit-analyzer",
+              "@semantic-release/release-notes-generator",
+              "@semantic-release/github"
+            ]
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Update branch for major version
+        if: steps.sem-rel.outputs.new-release-published == 'true'
+        run: git push
+             https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+             HEAD:refs/heads/v${{steps.sem-rel.outputs.release-major}}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
