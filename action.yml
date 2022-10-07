@@ -10,4 +10,4 @@ runs:
   steps:
     - id: get-salt-versions
       shell: bash
-      run: echo "::set-output name=salt-versions::[3001.8, 3002.7, 3003.3, 3004]"
+      run: echo "::set-output name=salt-versions::[3004.2, 3005.1]"
