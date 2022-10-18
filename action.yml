@@ -2,6 +2,9 @@ name: Get Salt Versions
 author: dafyddj
 description: Return a list of currently supported Salt versions
 outputs:
+  salt-latest:
+    description: The latest currently supported Salt version
+    value: ${{ steps.get-salt-versions.outputs.salt-latest }}
   salt-versions:
     description: A list of currently supported Salt versions
     value: ${{ steps.get-salt-versions.outputs.salt-versions }}
@@ -10,4 +13,8 @@ runs:
   steps:
     - id: get-salt-versions
       shell: bash
-      run: echo "::set-output name=salt-versions::[3004.2, 3005.1]"
+      run: |
+        VERSIONS='["3004.2", "3005.1"]'
+        echo "salt-versions=$VERSIONS" >> $GITHUB_OUTPUT
+        LATEST=$(echo "$VERSIONS" | jq -r '. | max_by( split(".")|map(tonumber) )')
+        echo "salt-latest=$LATEST" >> $GITHUB_OUTPUT

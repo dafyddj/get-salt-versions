@@ -7,20 +7,22 @@ jobs:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - uses: pre-commit/action@v2.0.3
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v3.0.0
   gsv:
     name: Get Salt versions
     runs-on: ubuntu-latest
     outputs:
       salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - id: get-salt-versions
         name: Run this action
         uses: ./
-      - run: echo ${{ steps.get-salt-versions.outputs.salt-versions }}
+      - run: |
+          echo "::notice ::Latest Salt version: ${{ steps.get-salt-versions.outputs.salt-latest }}"
+          echo "::notice ::Supported Salt versions: ${{ steps.get-salt-versions.outputs.salt-versions }}"
   show-salt-versions:
     name: Show Salt versions
     needs: gsv
@@ -29,7 +31,8 @@ jobs:
       matrix:
         version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
     steps:
-      - run: echo $SALT_VERSION
+      - run: |
+          echo "::notice ::Salt version: $SALT_VERSION"
         env:
           SALT_VERSION: ${{ matrix.version }}
   release:
@@ -39,9 +42,9 @@ jobs:
       - show-salt-versions
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run `semantic-release`
-        uses: codfish/semantic-release-action@v1
+        uses: codfish/semantic-release-action@v2
         id: sem-rel
         with:
           branches: |
