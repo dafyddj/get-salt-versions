@@ -20,7 +20,9 @@ jobs:
       - id: get-salt-versions
         name: Run this action
         uses: ./
-      - run: echo ${{ steps.get-salt-versions.outputs.salt-versions }}
+      - run: |
+          echo "::notice ::Latest Salt version: ${{ steps.get-salt-versions.outputs.salt-latest }}"
+          echo "::notice ::Supported Salt versions: ${{ steps.get-salt-versions.outputs.salt-versions }}"
   show-salt-versions:
     name: Show Salt versions
     needs: gsv
@@ -29,7 +31,8 @@ jobs:
       matrix:
         version: ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
     steps:
-      - run: echo $SALT_VERSION
+      - run: |
+          echo "::notice ::Salt version: $SALT_VERSION"
         env:
           SALT_VERSION: ${{ matrix.version }}
   release:
