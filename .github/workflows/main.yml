@@ -7,16 +7,16 @@ jobs:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-python@v2
-    - uses: pre-commit/action@v2.0.3
+    - uses: actions/checkout@v3
+    - uses: actions/setup-python@v4
+    - uses: pre-commit/action@v3.0.0
   gsv:
     name: Get Salt versions
     runs-on: ubuntu-latest
     outputs:
       salt-versions: ${{ steps.get-salt-versions.outputs.salt-versions }}
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - id: get-salt-versions
         name: Run this action
         uses: ./
@@ -39,9 +39,9 @@ jobs:
       - show-salt-versions
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Run `semantic-release`
-        uses: codfish/semantic-release-action@v1
+        uses: codfish/semantic-release-action@v2
         id: sem-rel
         with:
           branches: |
