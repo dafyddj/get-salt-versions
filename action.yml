@@ -14,7 +14,7 @@ runs:
     - id: get-salt-versions
       shell: bash
       run: |
-        VERSIONS='["3004.2", "3005.2", "3006.2"]'
+        VERSIONS='["3004.2", "3005.2", "3006.3"]'
         echo "salt-versions=$VERSIONS" >> $GITHUB_OUTPUT
         LATEST=$(echo "$VERSIONS" | jq -r '. | max_by( split(".")|map(tonumber) )')
         echo "salt-latest=$LATEST" >> $GITHUB_OUTPUT
