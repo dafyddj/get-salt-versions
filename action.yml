@@ -8,13 +8,23 @@ outputs:
   salt-versions:
     description: A list of currently supported Salt versions
     value: ${{ steps.get-salt-versions.outputs.salt-versions }}
+  salt-versions-els:
+    description: A list of Salt versions on extended life support
+    value: ${{ steps.get-salt-versions.outputs.salt-versions-els }}
+  salt-versions-rc:
+    description: A list of current Salt release candidate versions
+    value: ${{ steps.get-salt-versions.outputs.salt-versions-rc }}
 runs:
   using: composite
   steps:
     - id: get-salt-versions
       shell: bash
       run: |
-        VERSIONS='["3005.5", "3006.7", "3007.0"]'
+        VERSIONS='["3006.7", "3007.0"]'
+        ELS_VERSIONS='["3004.2", "3005.5"]'
+        RC_VERSIONS='[]'
         echo "salt-versions=$VERSIONS" >> $GITHUB_OUTPUT
+        echo "salt-versions-els=$ELS_VERSIONS" >> $GITHUB_OUTPUT
+        echo "salt-versions-rc=$RC_VERSIONS" >> $GITHUB_OUTPUT
         LATEST=$(echo "$VERSIONS" | jq -r '. | max_by( split(".")|map(tonumber) )')
         echo "salt-latest=$LATEST" >> $GITHUB_OUTPUT
