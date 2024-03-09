@@ -48,7 +48,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Run `semantic-release`
-        uses: codfish/semantic-release-action@v2
+        uses: codfish/semantic-release-action@07170c8b1613177f0f3aa4d2224e2e0933cd732c # v3.1.0
         id: sem-rel
         with:
           branches: |
