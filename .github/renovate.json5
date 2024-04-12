@@ -8,6 +8,7 @@
     "config:recommended",
     ":enablePreCommit",
     "helpers:pinGitHubActionDigestsToSemver",
+    "schedule:weekends",
   ],
   "packageRules": [
     {
