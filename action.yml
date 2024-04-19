@@ -21,7 +21,7 @@ runs:
       shell: bash
       run: |
         VERSIONS='["3006.7", "3007.0"]'
-        ELS_VERSIONS='["3004.2", "3005.5"]'
+        ELS_VERSIONS='["3005.5"]'
         RC_VERSIONS='[]'
         echo "salt-versions=$VERSIONS" >> $GITHUB_OUTPUT
         echo "salt-versions-els=$ELS_VERSIONS" >> $GITHUB_OUTPUT
