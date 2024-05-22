@@ -20,7 +20,7 @@ runs:
     - id: get-salt-versions
       shell: bash
       run: |
-        VERSIONS='["3006.8", "3007.0"]'
+        VERSIONS='["3006.8", "3007.1"]'
         ELS_VERSIONS='["3005.5"]'
         RC_VERSIONS='[]'
         echo "salt-versions=$VERSIONS" >> $GITHUB_OUTPUT
