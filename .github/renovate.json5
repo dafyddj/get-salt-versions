@@ -6,6 +6,7 @@
   ],
   "extends": [
     "config:recommended",
+    "regexManagers:githubActionsVersions",
   ],
   // `copier` template updates
   // There are two conditions that we need to account for
@@ -30,11 +31,17 @@
   },
   "packageRules": [
     {
+      // Salt major version releases must be added manually to the sls file
+      "matchDepPrefixes": ["salt-"],
+      "matchUpdateTypes": ["major"],
+      "enabled": false,
+    },
+    {
       "matchManagers": ["git-submodules"],
       "automerge": true,
     },
     {
-      "matchManagers": ["custom.regex"],
+      "matchFiles": [".copier-answers.yml"],
       "automerge": true,
       "commitMessageSuffix": "available",
     },
