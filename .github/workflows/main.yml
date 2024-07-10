@@ -6,10 +6,15 @@ jobs:
   pre-commit:
     name: Run `pre-commit`
     runs-on: ubuntu-latest
+    env:
+      # renovate: datasource=github-tags depName=python/cpython
+      PYTHON_VERSION: 3.12.3
     steps:
-    - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
-    - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
-    - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+      - uses: actions/setup-python@82c7e631bb3cdc910f68e0081d67478d79c6982d # v5.1.0
+        with:
+          python-version: ${{ env.PYTHON_VERSION }}
+      - uses: pre-commit/action@2c7b3805fd2a0fd8c1884dcaebf91fc102a13ecd # v3.0.1
   gsv:
     name: Get Salt versions
     runs-on: ubuntu-latest
@@ -18,7 +23,7 @@ jobs:
       salt-versions-els: ${{ steps.get-salt-versions.outputs.salt-versions-els }}
       salt-versions-rc: ${{ steps.get-salt-versions.outputs.salt-versions-rc }}
     steps:
-      - uses: actions/checkout@692973e3d937129bcbf40652eb9f2f61becf3332 # v4.1.7
+      - uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
       - id: get-salt-versions
         name: Run this action
         uses: ./
