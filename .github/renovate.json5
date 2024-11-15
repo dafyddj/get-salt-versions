@@ -8,15 +8,21 @@
     "config:recommended",
     "regexManagers:githubActionsVersions",
   ],
+  "automergeStrategy": "merge-commit",
   "git-submodules": {
     "enabled": true
   },
   "packageRules": [
     {
+<<<<<<< before updating
       // Salt major version releases must be added manually to the sls file
       "matchDepPrefixes": ["salt-"],
       "matchUpdateTypes": ["major"],
       "enabled": false,
+=======
+      "matchFileNames": ["template/**"],
+      "semanticCommitType": "fix",
+>>>>>>> after updating
     },
     {
       "matchManagers": ["git-submodules"],
