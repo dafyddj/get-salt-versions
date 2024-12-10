@@ -14,15 +14,14 @@
   },
   "packageRules": [
     {
-<<<<<<< before updating
       // Salt major version releases must be added manually to the sls file
       "matchDepPrefixes": ["salt-"],
       "matchUpdateTypes": ["major"],
       "enabled": false,
-=======
+    },
+    {
       "matchFileNames": ["template/**"],
       "semanticCommitType": "fix",
->>>>>>> after updating
     },
     {
       "matchManagers": ["git-submodules"],
