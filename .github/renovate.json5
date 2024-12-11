@@ -8,6 +8,7 @@
     "config:recommended",
     "regexManagers:githubActionsVersions",
   ],
+  "automergeStrategy": "merge-commit",
   "git-submodules": {
     "enabled": true
   },
@@ -17,6 +18,10 @@
       "matchDepPrefixes": ["salt-"],
       "matchUpdateTypes": ["major"],
       "enabled": false,
+    },
+    {
+      "matchFileNames": ["template/**"],
+      "semanticCommitType": "fix",
     },
     {
       "matchManagers": ["git-submodules"],
