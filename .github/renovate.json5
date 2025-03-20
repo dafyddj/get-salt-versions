@@ -24,6 +24,15 @@
       ],
     },
     {
+      matchPackageNames: [
+        'saltstack/salt'
+      ],
+      automerge: true,
+      extends: [
+       ':semanticPrefixFix',
+      ],
+    },
+    {
       matchFileNames: [
         'template/**',
       ],
