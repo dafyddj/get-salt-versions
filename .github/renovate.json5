@@ -1,31 +1,39 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "enabledManagers": [
-    "copier",
-    "git-submodules",
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  enabledManagers: [
+    'custom.regex',
+    'copier',
+    'git-submodules',
   ],
-  "extends": [
-    "config:recommended",
-    "regexManagers:githubActionsVersions",
+  extends: [
+    'config:recommended',
+    'customManagers:githubActionsVersions',
   ],
-  "automergeStrategy": "merge-commit",
-  "git-submodules": {
-    "enabled": true
+  automergeStrategy: 'merge-commit',
+  'git-submodules': {
+    enabled: true,
   },
-  "packageRules": [
+  packageRules: [
     {
-      // Salt major version releases must be added manually to the sls file
-      "matchDepPrefixes": ["salt-"],
-      "matchUpdateTypes": ["major"],
-      "enabled": false,
+      matchUpdateTypes: [
+        'major',
+      ],
+      enabled: false,
+      matchPackageNames: [
+        'saltstack/salt'
+      ],
     },
     {
-      "matchFileNames": ["template/**"],
-      "semanticCommitType": "fix",
+      matchFileNames: [
+        'template/**',
+      ],
+      semanticCommitType: 'fix',
     },
     {
-      "matchManagers": ["git-submodules"],
-      "automerge": true,
+      matchManagers: [
+        'git-submodules',
+      ],
+      automerge: true,
     },
   ],
 }
