@@ -39,10 +39,10 @@
       semanticCommitType: 'fix',
     },
     {
+      automerge: true,
       matchManagers: [
         'git-submodules',
       ],
-      automerge: true,
     },
   ],
 }
