@@ -38,13 +38,8 @@ jobs:
       salt-versions-els: ${{ steps.get-salt-versions.outputs.salt-versions-els }}
       salt-versions-rc: ${{ steps.get-salt-versions.outputs.salt-versions-rc }}
     steps:
-<<<<<<< before updating
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - id: get-salt-versions
-=======
       - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
-      - id: get-value
->>>>>>> after updating
+      - id: get-salt-versions
         name: Run this action
         uses: ./
       - run: |
@@ -58,18 +53,14 @@ jobs:
       - gsv
       - should-run
     if: fromJSON(needs.should-run.outputs.should-run)
-<<<<<<< before updating
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
     strategy:
       matrix:
         version:
           - ${{ fromJSON(needs.gsv.outputs.salt-versions-els) }}
           - ${{ fromJSON(needs.gsv.outputs.salt-versions) }}
           - ${{ fromJSON(needs.gsv.outputs.salt-versions-rc) }}
-=======
-    runs-on: ubuntu-24.04
-    timeout-minutes: 5
->>>>>>> after updating
     steps:
       - run: |
           echo "::notice ::Salt version: $SALT_VERSION"
