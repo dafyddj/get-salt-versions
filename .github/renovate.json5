@@ -12,21 +12,23 @@
   ],
   packageRules: [
     {
+      matchPackageNames: [
+        'saltstack/salt'
+      ],
       matchUpdateTypes: [
         'major',
       ],
       enabled: false,
-      matchPackageNames: [
-        'saltstack/salt'
-      ],
     },
     {
       matchPackageNames: [
         'saltstack/salt'
       ],
-      automerge: true,
       extends: [
        ':semanticPrefixFix',
+      ],
+      schedule: [
+        "* * * * *",
       ],
     },
   ],
