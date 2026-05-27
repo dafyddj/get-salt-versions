@@ -32,13 +32,5 @@
       ],
       versioning: 'loose',
     },
-    {
-      matchDepNames: [
-        'salt-3008.x',
-      ],
-      extends: [
-        ':automergeDisabled',
-      ],
-    },
   ],
 }
