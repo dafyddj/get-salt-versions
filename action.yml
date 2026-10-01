@@ -26,7 +26,7 @@ runs:
         # renovate: datasource=github-tags depName=salt-3008.x packageName=saltstack/salt
         SALT3008_VERSION: '3008.2'
         # renovate: datasource=github-tags depName=salt-3007.x packageName=saltstack/salt
-        SALT3007_VERSION: '3007.14'
+        SALT3007_VERSION: '3007.15'
         # renovate: datasource=github-tags depName=salt-3006.x packageName=saltstack/salt
         SALT3006_VERSION: '3006.27'
       run: |
